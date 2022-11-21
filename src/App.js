@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import {useSelector} from 'react-redux'
+import TodoList from './Components/TodoList';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AddTask from './Components/AddTask';
+import Filtred from './Components/Filtred';
+
+
 
 function App() {
+  const Todos = useSelector(state=> state.Todo.todos)
+  const Filtre = useSelector(state => state.Todo.Filtre)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTask />
+      <TodoList Todos={(Filtre=='Done')? Todos.filter(el=> el.isDone== true): (Filtre =='UnDone')? Todos.filter(el=> el.isDone== false) : Todos}/>
+      <hr/>
+      <Filtred/>
     </div>
   );
 }
